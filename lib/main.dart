@@ -1,9 +1,11 @@
+import 'package:breuninger_test/modules/github_gist_service/endpoint_widget.dart';
 import 'package:breuninger_test/modules/github_gist_service/headline_list_service.dart';
 import 'package:breuninger_test/modules/breuninger_list/list_block.dart';
 import 'package:breuninger_test/modules/breuninger_list/list_manager.dart';
 import 'package:breuninger_test/common/rest_service.dart';
 import 'package:breuninger_test/modules/github_gist_service/endpoint_block.dart';
 import 'package:breuninger_test/modules/github_gist_service/endpoint_manager.dart';
+import 'package:breuninger_test/widgets/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'modules/breuninger_list/breuninger_list.dart';
@@ -12,7 +14,7 @@ void main() {
   runApp(const MyApp());
 }
 
-class BreuningerAppRepository {
+class BreuningerAppRepository with EndpointWidgetProvider {
   late RestService restService;
   late GitHubGistHeadlineListServiceImpl headlineListService;
   late GitHubGistHeadlineListEndpointManager endpointManager;
@@ -39,6 +41,11 @@ class BreuningerAppRepository {
   EndpointBlock createEndpointBlock() {
     return EndpointBlock(endpointManager: endpointManager);
   }
+
+  @override
+  EndpointWidget createEndpointWidget() {
+    return EndpointWidget(endpointBlock: createEndpointBlock());
+  }
 }
 
 final BreuningerAppRepository repository = BreuningerAppRepository();
@@ -60,17 +67,10 @@ class MyApp extends StatelessWidget {
             create:
                 (BuildContext context) => repository.createHeadlinesListBloc(),
           ),
-          BlocProvider<EndpointBlock>(
-            create: (BuildContext context) => repository.createEndpointBlock(),
-          ),
         ],
         child: BlocBuilder<HeadlinesListBloc, HeadlinesListState>(
           builder: (context, state) {
-            return BlocBuilder<EndpointBlock, EndpointState>(
-              builder: (context, state) {
-                return const BreuningerScreen();
-              },
-            );
+            return BreuningerScreen(endpointWidgetProvider: repository);
           },
         ),
       ),

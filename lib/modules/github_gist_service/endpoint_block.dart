@@ -19,7 +19,7 @@ class EndpointBlock extends Bloc<EndpointEvent, EndpointState> {
   final GitHubGistHeadlineListEndpointManager endpointManager;
 
   EndpointBlock({required this.endpointManager})
-    : super(EndpointState(endpoint: GitHubGistEndpoints.simple)) {
+    : super(EndpointState(endpoint: endpointManager.endpoint)) {
     on<ChangeEndpintEvent>((event, emit) {
       endpointManager.setEndpoint(event.endpoint);
       emit(EndpointState(endpoint: event.endpoint));
