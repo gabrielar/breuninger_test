@@ -1,9 +1,7 @@
-import 'package:breuninger_test/breuninger_list/headline_list_service.dart';
-import 'package:breuninger_test/breuninger_list/list_block.dart';
-import 'package:breuninger_test/endpoint_block.dart';
+import 'package:breuninger_test/modules/github_gist_service/headline_list_service.dart';
+import 'package:breuninger_test/modules/github_gist_service/endpoint_block.dart';
 import 'package:breuninger_test/widgets/selector_lists.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EndpointWidget extends StatelessWidget {
 

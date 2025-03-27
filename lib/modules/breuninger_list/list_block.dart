@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
 import 'package:breuninger_test/common/filters.dart';
 import 'list_manager.dart';
@@ -11,6 +13,7 @@ final class SetFilter extends ListEvent {
 
 class HeadlinesListBloc extends Bloc<ListEvent, HeadlinesListState> {
   final HeadlinesListManager listManager;
+  List<StreamSubscription<void>> _refreshSubscriptions = [];
 
   HeadlinesListBloc({required this.listManager})
     : super(
@@ -31,6 +34,12 @@ class HeadlinesListBloc extends Bloc<ListEvent, HeadlinesListState> {
     });
 
     add(FetchList());
+  }
+
+  void addRefreshNotifier({required Stream<void> refreshEventStream}) {
+    _refreshSubscriptions.add(refreshEventStream.listen((_) {
+      add(FetchList());
+    }));
   }
 }
 

@@ -1,13 +1,13 @@
-import 'package:breuninger_test/breuninger_list/list_block.dart';
+import 'package:breuninger_test/modules/breuninger_list/list_block.dart';
 import 'package:breuninger_test/common/filters.dart';
-import 'package:breuninger_test/endpoint_block.dart';
-import 'package:breuninger_test/endpoint_widget.dart';
+import 'package:breuninger_test/modules/github_gist_service/endpoint_block.dart';
+import 'package:breuninger_test/modules/github_gist_service/endpoint_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:flutter/cupertino.dart';
-import '../widgets/screen_widget.dart';
-import '../widgets/selector_lists.dart';
+import '../../widgets/screen_widget.dart';
+import '../../widgets/selector_lists.dart';
 
 
 class BreuningerScreen extends ScreenWidget {

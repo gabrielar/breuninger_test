@@ -56,11 +56,14 @@ class HeadlinesListManager {
 
 // TODO: Filters should be more dynamic; HeadlineList should accept a set of filters.
     final genderFilter = this.filterResults.first as DropDownFilterSelection;
-    yield HeadlineList(
-      headlines: await _headlineListService.fetchList(filters: this.filterResults),
-      filter: _genderFilter(genderFilter)  ,
-    );
-
+    await for (var headlines in _headlineListService.fetchList(
+      filters: this.filterResults,
+    )) {
+      yield HeadlineList(
+        headlines: headlines,
+        filter: _genderFilter(genderFilter),
+      );
+    }
   }
 
   DropDownFilter _genderFilter(DropDownFilterSelection selectedGender) {
@@ -75,7 +78,7 @@ class HeadlinesListManager {
 }
 
 abstract class HeadlineListService {
-    Future<List<HeadlinesListElement>> fetchList({List<FilterResult>? filters});
+    Stream<List<HeadlinesListElement>> fetchList({List<FilterResult>? filters});
 }
 
 class JsonParsingException implements Exception {

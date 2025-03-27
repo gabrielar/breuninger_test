@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:breuninger_test/breuninger_list/headline_list_service.dart';
+import 'package:breuninger_test/modules/github_gist_service/endpoint_manager.dart';
+import 'package:breuninger_test/modules/github_gist_service/headline_list_service.dart';
 
 class EndpointState {
   final GitHubGistEndpoints endpoint;
@@ -15,13 +16,13 @@ class ChangeEndpintEvent extends EndpointEvent {
 }
 
 class EndpointBlock extends Bloc<EndpointEvent, EndpointState> {
+  final GitHubGistHeadlineListEndpointManager endpointManager;
 
-final GitHubGistHeadlineListServiceImpl headlineListService;
-
-  EndpointBlock({required this.headlineListService}) : super(EndpointState(endpoint: GitHubGistEndpoints.simple)) {
+  EndpointBlock({required this.endpointManager})
+    : super(EndpointState(endpoint: GitHubGistEndpoints.simple)) {
     on<ChangeEndpintEvent>((event, emit) {
-      headlineListService.endpoint = event.endpoint;
+      endpointManager.setEndpoint(event.endpoint);
       emit(EndpointState(endpoint: event.endpoint));
-    },);
+    });
   }
 }

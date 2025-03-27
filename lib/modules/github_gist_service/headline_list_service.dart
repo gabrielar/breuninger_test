@@ -1,5 +1,6 @@
+import 'dart:async';
 import 'dart:convert';
-import 'package:breuninger_test/breuninger_list/list_manager.dart';
+import 'package:breuninger_test/modules/breuninger_list/list_manager.dart';
 import 'package:breuninger_test/common/filters.dart';
 import 'package:breuninger_test/common/rest_service.dart';
 
@@ -27,7 +28,7 @@ class GitHubGistHeadlineListServiceImpl extends HeadlineListService {
   GitHubGistHeadlineListServiceImpl({required this.restService, required this.endpoint});
 
   @override
-  Future<List<HeadlinesListElement>> fetchList({List<FilterResult>? filters}) async {
+  Stream<List<HeadlinesListElement>> fetchList({List<FilterResult>? filters}) async* {
     final headlineListString = await restService.get(urlString: endpoint.urlString);
     List<dynamic> jsonRoot = jsonDecode(headlineListString);
     List<HeadlinesListElement> headlineList = [];
@@ -53,7 +54,7 @@ class GitHubGistHeadlineListServiceImpl extends HeadlineListService {
 // TODO: Filters should be more dynamic; HeadlineList should accept a set of filters.
     final genderId = (filters?.first as DropDownFilterSelection?)?.id ?? Gender.all.id;
 
-    return headlineList.where((h) {
+    yield headlineList.where((h) {
       return genderId == Gender.all.id ? true : h.gender.id == genderId;
     }).toList();
   }

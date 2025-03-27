@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:breuninger_test/breuninger_list/headline_list_service.dart';
-import 'package:breuninger_test/breuninger_list/list_manager.dart';
+import 'package:breuninger_test/modules/github_gist_service/headline_list_service.dart';
+import 'package:breuninger_test/modules/breuninger_list/list_manager.dart';
 import 'package:breuninger_test/common/filters.dart';
 import 'package:breuninger_test/common/rest_service.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:breuninger_test/breuninger_list/list_block.dart';
+import 'package:breuninger_test/modules/breuninger_list/list_block.dart';
 
 
 void main() {
