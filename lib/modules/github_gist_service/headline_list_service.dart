@@ -29,6 +29,9 @@ class GitHubGistHeadlineListServiceImpl extends HeadlineListService {
 
   @override
   Stream<List<HeadlinesListElement>> fetchList({List<FilterResult>? filters}) async* {
+    // TODO: Filters should be more dynamic; HeadlineList should accept a set of filters.
+    final genderId = (filters?.first as DropDownFilterSelection?)?.id ?? Gender.all.id;
+
     final headlineListString = await restService.get(urlString: endpoint.urlString);
     List<dynamic> jsonRoot = jsonDecode(headlineListString);
     List<HeadlinesListElement> headlineList = [];
@@ -42,6 +45,10 @@ class GitHubGistHeadlineListServiceImpl extends HeadlineListService {
         }
       }
       if (h['type'] == 'brand_slider') {
+        yield headlineList.where((h) {
+          return genderId == Gender.all.id ? true : h.gender.id == genderId;
+        }).toList();
+
         final itemsUrl = h['attributes']['items_url'] as String;
         final itemsString = await restService.get(urlString: itemsUrl);
         final itemsJsonRoot = jsonDecode(itemsString);
@@ -50,9 +57,6 @@ class GitHubGistHeadlineListServiceImpl extends HeadlineListService {
         }
       }
     }
-
-// TODO: Filters should be more dynamic; HeadlineList should accept a set of filters.
-    final genderId = (filters?.first as DropDownFilterSelection?)?.id ?? Gender.all.id;
 
     yield headlineList.where((h) {
       return genderId == Gender.all.id ? true : h.gender.id == genderId;
