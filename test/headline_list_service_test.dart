@@ -39,6 +39,66 @@ void main() {
           }
         }
       });
+
+
+      test("complex list with missing url in teaser", () async {
+        final hls = GitHubGistHeadlineListServiceImpl(
+          restService: MockRestServiceMissingUrlTeaser(),
+          endpoint: GitHubGistEndpoints.complex,
+        );
+
+        var iterationCount = 0;
+        await for (var headlineList in hls.fetchList()) {
+          expect(headlineList[0].id == 1, isTrue);
+          expect(headlineList[1].id == 2442, isTrue);
+          expect(headlineList[2].id == 9685, isTrue);
+          expect(headlineList[3].id == 3344, isTrue);
+          if (iterationCount > 0) {
+            expect(headlineList[4].id == 47567, isTrue);
+            expect(headlineList[5].id == 465757, isTrue);
+          }
+        }
+      });
+
+
+      test("complex list with missing url in slider", () async {
+        final hls = GitHubGistHeadlineListServiceImpl(
+          restService: MockRestServiceMissingUrlSlider(),
+          endpoint: GitHubGistEndpoints.complex,
+        );
+
+        var iterationCount = 0;
+        await for (var headlineList in hls.fetchList()) {
+          expect(headlineList[0].id == 1, isTrue);
+          expect(headlineList[1].id == 2, isTrue);
+          expect(headlineList[2].id == 9685, isTrue);
+          expect(headlineList[3].id == 3344, isTrue);
+          if (iterationCount > 0) {
+            expect(headlineList[4].id == 47567, isTrue);
+            expect(headlineList[5].id == 465757, isTrue);
+          }
+        }
+      });
+
+      test("complex list with missing url in band slider", () async {
+        final hls = GitHubGistHeadlineListServiceImpl(
+          restService: MockRestServiceMissingUrlBandSlider(),
+          endpoint: GitHubGistEndpoints.complex,
+        );
+
+        var iterationCount = 0;
+        await for (var headlineList in hls.fetchList()) {
+          expect(headlineList[0].id == 1, isTrue);
+          expect(headlineList[1].id == 2, isTrue);
+          expect(headlineList[2].id == 2442, isTrue);
+          expect(headlineList[3].id == 9685, isTrue);
+          expect(headlineList[4].id == 3344, isTrue);
+          if (iterationCount > 0) {
+            expect(headlineList[5].id == 465757, isTrue);
+          }
+        }
+      });
+
     });
   });
 }

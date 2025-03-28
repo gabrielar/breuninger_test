@@ -1,7 +1,5 @@
 import 'package:breuninger_test/modules/breuninger_list/list_block.dart';
 import 'package:breuninger_test/common/filters.dart';
-import 'package:breuninger_test/modules/github_gist_service/endpoint_block.dart';
-import 'package:breuninger_test/modules/github_gist_service/endpoint_widget.dart';
 import 'package:breuninger_test/widgets/providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

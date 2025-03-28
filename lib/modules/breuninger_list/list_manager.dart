@@ -80,11 +80,3 @@ class HeadlinesListManager {
 abstract class HeadlineListService {
     Stream<List<HeadlinesListElement>> fetchList({List<FilterResult>? filters});
 }
-
-class JsonParsingException implements Exception {
-  final String message;
-  JsonParsingException({required this.message});
-
-  @override
-  String toString() => 'CustomException: $message';
-}
